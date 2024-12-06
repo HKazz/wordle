@@ -21,17 +21,29 @@
       <button data-modal-target="#modal">HOW TO PLAY</button>
       <div class="modal" id="modal">
         <div class="modal-header">
-          <div class="title">Example Modal</div>
+          <div class="title">How to Play Wordle!</div>
           <button data-close-button class="close-button">&times;</button>
         </div>
         <div class="modal-body">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi porro vitae repudiandae, dicta eos minus accusamus, quam aliquam consequuntur, aspernatur voluptates consectetur quae omnis iste assumenda fuga neque nihil quidem.
+          <ul>
+            <li>Guess a 5-letter word: Start by typing a 5-letter word into the input box.</li>
+            <li>Submit your guess: Click the "Submit" button to check your guess.</li>
+            <li>Feedback:
+                <ul>
+                    <li><span style="color: green;">Green:</span> The letter is in the correct position.</li>
+                    <li><span style="color: rgb(188, 188, 25);">Yellow:</span> The letter is in the word, but in the wrong position.</li>
+                    <li><span style="color: gray;">Grey:</span> The letter is not in the word.</li>
+                </ul>
+            </li>
+            <li>Keep guessing: Use the feedback to help you make your next guess. You have six tries to guess the word.</li>
+            <li>Win/Lose: If you guess the word correctly within the six tries, you win! If not, the game ends.</li>
+        </ul>
         </div>
       </div>
       <div  id="overlay"></div>
 
       <section class="user-input">
-        <input type="text" id="input" placeholder="Put Your Guess Here!">
+        <input type="text" id="input" placehulder="Put Your Guess Here!">
         <button class="submit">Submit</button>
       </section>
 </body>
