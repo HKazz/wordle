@@ -7,6 +7,10 @@ body{
     margin-top: 10%;
 }
 
+.sqr{
+  transition: 100ms ease; /*Come back to this*/
+}
+
 .modal {
   position: fixed;
   top: 50%;
@@ -86,4 +90,8 @@ body{
 
   .user-input{
     margin-top: 25px;
+  }
+
+  .guess{
+    margin: 0;
   }

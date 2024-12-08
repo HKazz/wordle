@@ -1,5 +1,6 @@
 let submitButton
 let randomizedWord
+let guesses = 6
 const words = [
     "ABOUT",
     "BEGAN",
@@ -12,7 +13,7 @@ const words = [
     "ICING",
     "JOINT",
     "LARGE",
-    "MIGHTY",
+    "MIGHT",
     "NEVER",
     "OCEAN",
     "PEACE",
@@ -48,6 +49,8 @@ const words = [
 let userInput = document.querySelector('#input')
 submitButton = document.querySelector('.submit')
 const boardEL = document.querySelectorAll('.sqr')
+let guessEL = document.querySelector('.guess')
+const resetButton = document.querySelector('.reset')
 
 
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
@@ -96,6 +99,10 @@ function init(){
     boardEL.textContent = ''
     userInputValue = ''
     console.log('initialization complete')
+    guesses = 7
+    clearWord()
+    updateGuess()
+    cleanInput()
     randomWord()
 }
 
@@ -132,6 +139,13 @@ function clearWord(){
     });
 }
 
+function cleanInput(){
+    let input = document.getElementById('input')
+    input.value = ""
+    console.log(input)
+    // input.textContent = ''
+}
+
 function checkWord(){
     const randomizedLetters = randomizedWord.split('')
     let isCorrect = true
@@ -165,6 +179,22 @@ function checkWord(){
     }
 }
 
+function updateGuess(){
+    guessEL.textContent = `Guesses: ${guesses}`
+
+    if(guesses <=  0){
+        alert("game over.")
+        guessEL.textContent = `Guesses: ${guesses}`
+        return
+    }
+    else{
+        guesses = guesses - 1
+        guessEL.textContent = `Guesses: ${guesses}`
+        return
+    }
+
+}
+
 
 // function updateBoard(){
 //     boardEL.textContent = userInput
@@ -172,6 +202,7 @@ function checkWord(){
 
 function submit(){
     let inputValue = userInput.value
+    let myPattern = /^[A-Z]+$/i
     if (inputValue === '') {
         alert('Please enter a word.');
         return;
@@ -180,11 +211,16 @@ function submit(){
         alert('Please enter a 5-letter word')
 
     }
+    else if(myPattern.test(inputValue) === false){
+        alert("Please enter letters only. No special characters or numbers")
+    }
     else{
     //     inputValue = userInput.value
         console.log(inputValue)
+        updateGuess()
         updateBoard()
         checkWord()
+        cleanInput()
         console.log(boardEL)
     }
 }
@@ -195,3 +231,5 @@ if(submitButton){
 else{
     console.log("submit button not found")
 }
+
+resetButton.addEventListener('click', init)
