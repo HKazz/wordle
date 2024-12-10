@@ -72,20 +72,29 @@ body{
 
 
 .board {
-    display: flex;
-    flex-wrap: nowrap;
-    width: 325px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    width: 350px;
+    margin-top: 20px;
     color: white;
     align-items: center;
+    justify-items: center;
+    box-sizing: border-box;
   }
   
   .sqr {
-    width: 30%;
+    width: 100%;
     aspect-ratio: 1/1;
     border: 3px solid black;
     font-size: 64px;
     text-align: center;
     color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 100ms ease;
+    box-sizing: border-box;
   }
 
   .user-input{

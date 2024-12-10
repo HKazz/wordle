@@ -2,49 +2,17 @@ let submitButton
 let randomizedWord
 let guesses = 6
 const words = [
-    "ABOUT",
-    "BEGAN",
-    "COURT",
-    "DREAM",
-    "EARLY",
-    "FALSE",
-    "GREAT",
-    "HAPPY",
-    "ICING",
-    "JOINT",
-    "LARGE",
-    "MIGHT",
-    "NEVER",
-    "OCEAN",
-    "PEACE",
-    "QUICK",
-    "RAINY",
-    "THANK",
-    "UNDER",
-    "VIVID",
-    "X-RAY",
-    "YEARN",
-    "ZEBRA",
-    "ALONE",
-    "BASIC",
-    "CLEAR",
-    "DANCE",
-    "EMPTY",
-    "FUNNY",
-    "HAPPY",
-    "IDEAL",
-    "LOVER",
-    "ARRAY",
-    "PEACE",
-    "QUICK",
-    "WRATH",
-    "QUERY",
-    "TRUTH",
-    "CRYPT",
-    "SHORE",
-    "WATER",
-    "YOUNG"
-  ];
+    "APPLE", "BRAVE", "CRAZY", "DANCE", "EAGLE", "FLAME", "GRAPE", "HAPPY", "IVORY", "JOLLY",
+    "KNEEL", "LUCKY", "MAGIC", "NOBLE", "OCEAN", "PROUD", "QUEEN", "RAVEN", "SHINY", "TIGER",
+    "UNCLE", "VIVID", "WHALE", "YACHT", "ZEBRA", "ADORE", "BINGO", "CANDY", "DELTA",
+    "ELBOW", "FROST", "GLORY", "HORSE", "INDIA", "JOKER", "KNIFE", "LEMON", "METER", "NORTH",
+    "ORBIT", "PIANO", "QUAKE", "RAINY", "SIREN", "TRUST", "URBAN", "VITAL", "WITTY", "YIELD",
+    "ZESTY", "AMBER", "BOOST", "CRAFT", "DWARF", "EAGER", "FABLE", "GRILL", "HOUSE", "IDEAL",
+    "JUMPY", "KARMA", "LARGE", "MODEL", "NOVEL", "OXIDE", "POINT", "QUILT", "RISKY", "STORK",
+    "TOAST", "UNION", "VOCAL", "WATER", "YOUNG", "ZESTY", "ARROW", "BLADE", "CHARM", "DREAM",
+    "ELITE", "FANCY", "GIANT", "HONOR", "INPUT", "JAZZY", "KNEAD", "LIGHT", "MARCH", "PEACE",
+    "PLANT", "QUICK", "RIVER", "STACK", "STONE", "SWIFT", "TULIP", "VALOR"
+  ];  
 
 let userInput = document.querySelector('#input')
 submitButton = document.querySelector('.submit')
@@ -119,7 +87,10 @@ console.log(submitButton)
 console.log(boardEL)
 
 function updateBoard() {
-    const userInputValue = userInput.value.toUpperCase(); // Ensure uppercase for comparison
+    const userInputValue = userInput.value.toUpperCase(); 
+    const boardContainer = document.getElementById('board-container')
+    const currentRow = boardContainer.lastElementChild
+    const squares = currentRow.querySelectorAll('sqr')
   
     clearWord();
       const letters = userInputValue.split('');
@@ -146,7 +117,7 @@ function cleanInput(){
     // input.textContent = ''
 }
 
-function checkWord(){
+ function checkWord(){
     const randomizedLetters = randomizedWord.split('')
     let isCorrect = true
 
@@ -181,10 +152,11 @@ function checkWord(){
 
 function updateGuess(){
     guessEL.textContent = `Guesses: ${guesses}`
-
-    if(guesses <=  0){
+    // needs work
+    if(guesses ===  0){
         alert("game over.")
         guessEL.textContent = `Guesses: ${guesses}`
+        console.log(`The word is ${randomizedWord}`)
         return
     }
     else{
@@ -195,10 +167,25 @@ function updateGuess(){
 
 }
 
+function createNewRow(){
+    const boardContainer = document.getElementById('board-container')
+    if(!boardContainer){
+        console.error('board container not found')
+        return
+    }
+    const newRow = document.createElement('div')
+    newRow.classList.add('row')
+    
+    for(let i = 0; i < 5; i++){
+        const square = document.createElement('div')
+        square.classList.add('sqr')
+        square.textContent = ''
+        newRow.appendChild(square)
+    }
+    boardContainer.appendChild(newRow)
+    
+}
 
-// function updateBoard(){
-//     boardEL.textContent = userInput
-// }
 
 function submit(){
     let inputValue = userInput.value
@@ -217,6 +204,7 @@ function submit(){
     else{
     //     inputValue = userInput.value
         console.log(inputValue)
+        createNewRow()
         updateGuess()
         updateBoard()
         checkWord()
