@@ -1,14 +1,23 @@
 body{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    justify-items: center;
     flex-direction: column;
     margin: auto;
     margin-top: 10%;
 }
 
-.sqr{
-  transition: 100ms ease; /*Come back to this*/
+.modal-button{
+  background-color: black;
+  color: white;
+  border: 1px solid;
+  border-radius: 55px;
+  margin-top: 10%;
+}
+
+.row {
+  display: flex;
 }
 
 .modal {
@@ -72,19 +81,18 @@ body{
 
 
 .board {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    width: 350px;
-    margin-top: 20px;
-    color: white;
-    align-items: center;
-    justify-items: center;
-    box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  width:300px;
+  color:white;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
   }
   
   .sqr {
-    width: 100%;
+    width: 60px;
+    height: 60px;
     aspect-ratio: 1/1;
     border: 3px solid black;
     font-size: 64px;
@@ -94,7 +102,6 @@ body{
     align-items: center;
     justify-content: center;
     transition: 100ms ease;
-    box-sizing: border-box;
   }
 
   .user-input{

@@ -10,16 +10,18 @@
 <body>
     <h1>Wordle</h1>
     <h1 class="guess">Guesses: </h1>
-    <a href="#instructions">How to Play</a>
     <section class="board" id="board-container">
+      <div class="row">
         <div class="sqr" id="0"></div>
         <div class="sqr" id="1"></div>
         <div class="sqr" id="2"></div>
         <div class="sqr" id="3"></div>
         <div class="sqr" id="4"></div>
+        <!-- <br> -->
+      </div>
       </section>
 
-      <button data-modal-target="#modal">HOW TO PLAY</button>
+      <button class="modal-button" data-modal-target="#modal">HOW TO PLAY</button>
       <div class="modal" id="modal">
         <div class="modal-header">
           <div class="title">How to Play Wordle!</div>

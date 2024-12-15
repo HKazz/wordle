@@ -17,6 +17,7 @@ const words = [
 let userInput = document.querySelector('#input')
 submitButton = document.querySelector('.submit')
 const boardEL = document.querySelectorAll('.sqr')
+const row = document.querySelectorAll('row')
 let guessEL = document.querySelector('.guess')
 const resetButton = document.querySelector('.reset')
 
@@ -64,9 +65,22 @@ function closeModal(modal){
 
 function init(){
     console.log('initialization begun')
-    boardEL.textContent = ''
+    boardEL.forEach(element => {
+        element.textContent = ''
+        element.style.backgroundColor = ''
+    })
+
+    const rows = document.querySelectorAll('.row')
+
+    if(rows.length > 1){
+        rows.forEach( ()=>{
+            rows[1].remove()
+        })
+    }
+
     userInputValue = ''
     console.log('initialization complete')
+    console.log(rows.length)
     guesses = 7
     clearWord()
     updateGuess()
@@ -86,22 +100,39 @@ console.log(userInput)
 console.log(submitButton)
 console.log(boardEL)
 
-function updateBoard() {
-    const userInputValue = userInput.value.toUpperCase(); 
-    const boardContainer = document.getElementById('board-container')
-    const currentRow = boardContainer.lastElementChild
-    const squares = currentRow.querySelectorAll('sqr')
-  
-    clearWord();
-      const letters = userInputValue.split('');
-      letters.forEach((letter, index) => {
-        boardEL[index].textContent = letter
-        return
-      });
-      boardEL.forEach((element, index) => {
+function updateBoard(){
+    const userInputValue = userInput.value.toUpperCase()
+    const letters = userInputValue.split('')
+    const rows = document.querySelectorAll('.row')
+    const currentRow = rows[rows.length - 2]
+    squares = currentRow.querySelectorAll('.sqr')
+
+    squares.forEach((square, index) => {
+        square.textContent = letters[index]
+        console.log(square)
+    })
+
+    boardEL.forEach((element, index) => {
         console.log(`${index}: ${element.textContent}`)
-      })
-    }
+    })
+}
+// writes only on the first row
+// function updateBoard() {
+//     const userInputValue = userInput.value.toUpperCase(); 
+//     const boardContainer = document.getElementById('board-container')
+//     const currentRow = boardContainer.lastElementChild
+//     const squares = currentRow.querySelectorAll('sqr')
+  
+//     clearWord();
+//       const letters = userInputValue.split('');
+//       letters.forEach((letter, index) => {
+//         boardEL[index].textContent = letter
+//         return
+//       });
+//       boardEL.forEach((element, index) => {
+//         console.log(`${index}: ${element.textContent}`)
+//       })
+//     }
   
 function clearWord(){
     boardEL.forEach(element => {
@@ -114,15 +145,15 @@ function cleanInput(){
     let input = document.getElementById('input')
     input.value = ""
     console.log(input)
-    // input.textContent = ''
 }
 
  function checkWord(){
     const randomizedLetters = randomizedWord.split('')
+    const row = document.querySelectorAll('.row')
+    const currentRow = row[row.length - 2]
+    const squares = currentRow.querySelectorAll('.sqr') 
     let isCorrect = true
-
-    // boardEL.forEach((arg) => )
-    boardEL.forEach((element, index) => {
+    squares.forEach((element, index) => {
         const letter = element.textContent
         if(letter === randomizedLetters[index]){
             console.log(`Letter ${index + 1}: ${element.textContent} is correct `)
@@ -153,41 +184,44 @@ function cleanInput(){
 function updateGuess(){
     guessEL.textContent = `Guesses: ${guesses}`
     // needs work
-    if(guesses ===  0){
-        alert("game over.")
-        guessEL.textContent = `Guesses: ${guesses}`
-        console.log(`The word is ${randomizedWord}`)
-        return
-    }
-    else{
+    if(guesses >  0){
         guesses = guesses - 1
         guessEL.textContent = `Guesses: ${guesses}`
-        return
+    }
+    if(guesses === 0){
+        
+        guessEL.textContent = `Guesses: ${guesses}`
+        console.log(`The word is ${randomizedWord}`)
+        alert("game over.")
+        return   
     }
 
 }
 
 function createNewRow(){
     const boardContainer = document.getElementById('board-container')
-    if(!boardContainer){
-        console.error('board container not found')
-        return
-    }
-    const newRow = document.createElement('div')
-    newRow.classList.add('row')
-    
-    for(let i = 0; i < 5; i++){
+    console.log(boardContainer)
+
+    const row = document.createElement('div')
+    row.classList.add('row')
+    console.log(row)
+
+    for(i=0; i < 5; i++){
         const square = document.createElement('div')
+        console.log(square)
         square.classList.add('sqr')
         square.textContent = ''
-        newRow.appendChild(square)
+        console.log(square)
+        row.appendChild(square)
     }
-    boardContainer.appendChild(newRow)
-    
+    boardContainer.append(row)
 }
 
 
 function submit(){
+    if(guesses === 0){
+        return
+    }
     let inputValue = userInput.value
     let myPattern = /^[A-Z]+$/i
     if (inputValue === '') {
@@ -202,7 +236,6 @@ function submit(){
         alert("Please enter letters only. No special characters or numbers")
     }
     else{
-    //     inputValue = userInput.value
         console.log(inputValue)
         createNewRow()
         updateGuess()
@@ -220,4 +253,6 @@ else{
     console.log("submit button not found")
 }
 
-resetButton.addEventListener('click', init)
+resetButton.addEventListener('click', () =>{
+    location.reload();
+})
