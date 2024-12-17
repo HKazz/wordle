@@ -10,6 +10,7 @@
 <body>
     <h1>Wordle</h1>
     <h1 class="guess">Guesses: </h1>
+    <h2 id="word-reveal">Word: </h2>
     <section class="board" id="board-container">
       <div class="row">
         <div class="sqr" id="0"></div>
@@ -44,6 +45,14 @@
         </div>
       </div>
       <div  id="overlay"></div>
+
+      <div class="error-modal" id="error-modal">
+        <div class="error-header">
+          <div class="title">ERROR</div>
+          <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="error-body" id="error-message"></div>
+      </div>
 
       <section class="user-input">
         <input type="text" id="input" placeholder="Put Your Guess Here!">

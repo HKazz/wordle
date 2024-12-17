@@ -25,6 +25,9 @@ const resetButton = document.querySelector('.reset')
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
 const closeModalButtons = document.querySelectorAll('[data-close-button]')
 const overlay = document.getElementById('overlay')
+const errorModal = document.getElementById('error-modal')
+const errorMessage = document.getElementById('error-message')
+
 
 openModalButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -40,6 +43,13 @@ overlay.addEventListener('click', () => {
     })
 })
 
+overlay.addEventListener('click', () => {
+    const modals = document.querySelectorAll('.error-modal.active')
+    modals.forEach(modal =>{
+        closeModal(modal)
+    })
+})
+
 closeModalButtons.forEach(button => {
     button.addEventListener('click', () => {
         const modal = button.closest('.modal')
@@ -47,6 +57,22 @@ closeModalButtons.forEach(button => {
     })
 });
 
+closeModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = button.closest('.error-modal')
+        closeModal(modal)
+    })
+});
+
+function reveal(){
+    if(guesses === 0){
+        let wordReveal = document.getElementById('word-reveal')
+        wordReveal.textContent = `The word was: ${randomizedWord}`
+        wordReveal.style.color = 'green'
+        console.log(wordReveal)
+        wordReveal.classList.add('active')
+    }
+}
 
 function openModal(modal){
     if(modal === null) return
@@ -173,7 +199,8 @@ function cleanInput(){
 
     if(isCorrect){
         console.log('THE WORD IS RIGHT')
-        alert('Congratulations! You guessed the word!')
+        guessEL.textContent = 'YOU GUESSED IT'
+        guessEL.style.color = 'green'
         // add confetti
     }
     else{
@@ -190,9 +217,11 @@ function updateGuess(){
     }
     if(guesses === 0){
         
-        guessEL.textContent = `Guesses: ${guesses}`
+        guessEL.textContent = `GAME OVER`
+        guessEL.style.color = 'red'
         console.log(`The word is ${randomizedWord}`)
-        alert("game over.")
+        reveal()
+        console.log(randomizedWord)
         return   
     }
 
@@ -217,6 +246,11 @@ function createNewRow(){
     boardContainer.append(row)
 }
 
+function showErrorModal(message){
+    errorMessage.textContent = message
+    openModal(errorModal)
+}
+
 
 function submit(){
     if(guesses === 0){
@@ -225,15 +259,15 @@ function submit(){
     let inputValue = userInput.value
     let myPattern = /^[A-Z]+$/i
     if (inputValue === '') {
-        alert('Please enter a word.');
+        showErrorModal('Please enter a word.');
         return;
     }
     else if(inputValue.length < 5 || inputValue.length > 5){
-        alert('Please enter a 5-letter word')
+        showErrorModal('Please enter a 5-letter word')
 
     }
     else if(myPattern.test(inputValue) === false){
-        alert("Please enter letters only. No special characters or numbers")
+        showErrorModal("Please enter letters only. No special characters or numbers")
     }
     else{
         console.log(inputValue)
@@ -245,6 +279,13 @@ function submit(){
         console.log(boardEL)
     }
 }
+
+userInput.addEventListener('keydown', (event) => {
+    if(event.key === 'Enter'){
+        event.preventDefault()
+        submit()
+    }
+})
 
 if(submitButton){
     submitButton.addEventListener('click', submit)
