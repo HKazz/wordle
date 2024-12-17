@@ -112,8 +112,9 @@ body{
   
   #wordle{
     font-size: 36px;
-    color: black;
-    border: 1px solid white;
+    color: white;
+    -webkit-text-stroke: black;
+    -webkit-text-stroke-width: 1.5px;
   }
   
   #input{
@@ -121,8 +122,9 @@ body{
   }
 
   .guess{
-    color: black;
-    border: 1px solid white;
+    color: white;
+    -webkit-text-stroke: black;
+    -webkit-text-stroke-width: 1.5px;
   }
   
 .modal-header .close-button{
