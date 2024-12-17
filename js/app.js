@@ -186,7 +186,7 @@ function cleanInput(){
         guessEL.style.color = 'green'
         jsConfetti.addConfetti({
             emojis: [randomizedLetters],
-              confettiRadius: 6,
+              confettiRadius: 0.2,
               confettiNumber: 100,
         })
     }

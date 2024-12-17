@@ -1,9 +1,15 @@
 body{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     display: flex;
     align-items: center;
     justify-content: space-between;
     justify-items: center;
     flex-direction: column;
+    background-color: lightblue;
+    /* background-image: url(/projects/wordle/WORDLE-BACKGROUND.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; */
     margin: auto;
     margin-top: 10%;
 }
@@ -12,6 +18,7 @@ body{
   background-color: black;
   color: white;
   border: 1px solid;
+  font-size: 18px;
   border-radius: 55px;
   margin-top: 10%;
 }
@@ -46,6 +53,24 @@ body{
   background-color: red;
   width: 500px;
   max-width: 80%;
+}
+
+.submit{
+  background-color: green;
+  color: white;
+  border: 1px solid white;
+  border-radius: 20px;
+  font-size: 20px;
+  margin: auto;
+}
+
+.reset{
+  background-color: red;
+  color: white;
+  border: 1px solid white;
+  border-radius: 20px;
+  font-size: 20px;
+  margin: auto;
 }
 
 .error-header{
@@ -85,7 +110,20 @@ body{
   font-weight: bold;
   }
   
+  #wordle{
+    font-size: 36px;
+    color: black;
+    border: 1px solid white;
+  }
   
+  #input{
+    font-size: 18px;
+  }
+
+  .guess{
+    color: black;
+    border: 1px solid white;
+  }
   
 .modal-header .close-button{
   cursor: pointer;
