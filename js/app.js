@@ -20,7 +20,7 @@ const boardEL = document.querySelectorAll('.sqr')
 const row = document.querySelectorAll('row')
 let guessEL = document.querySelector('.guess')
 const resetButton = document.querySelector('.reset')
-
+const jsConfetti = new JSConfetti()
 
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
 const closeModalButtons = document.querySelectorAll('[data-close-button]')
@@ -142,24 +142,7 @@ function updateBoard(){
         console.log(`${index}: ${element.textContent}`)
     })
 }
-// writes only on the first row
-// function updateBoard() {
-//     const userInputValue = userInput.value.toUpperCase(); 
-//     const boardContainer = document.getElementById('board-container')
-//     const currentRow = boardContainer.lastElementChild
-//     const squares = currentRow.querySelectorAll('sqr')
-  
-//     clearWord();
-//       const letters = userInputValue.split('');
-//       letters.forEach((letter, index) => {
-//         boardEL[index].textContent = letter
-//         return
-//       });
-//       boardEL.forEach((element, index) => {
-//         console.log(`${index}: ${element.textContent}`)
-//       })
-//     }
-  
+
 function clearWord(){
     boardEL.forEach(element => {
         element.textContent = ''
@@ -201,7 +184,11 @@ function cleanInput(){
         console.log('THE WORD IS RIGHT')
         guessEL.textContent = 'YOU GUESSED IT'
         guessEL.style.color = 'green'
-        // add confetti
+        jsConfetti.addConfetti({
+            emojis: [randomizedLetters],
+              confettiRadius: 6,
+              confettiNumber: 100,
+        })
     }
     else{
         console.log('THE WORD IS WRONG')
@@ -221,6 +208,17 @@ function updateGuess(){
         guessEL.style.color = 'red'
         console.log(`The word is ${randomizedWord}`)
         reveal()
+        jsConfetti.addConfetti({
+            confettiColors: [
+                '#FF0000',
+                '#FF4500',
+                '#DC143C',
+                '#B22222',
+                '#8B0000'
+            ],
+              confettiRadius: 6,
+              confettiNumber: 100,
+        })
         console.log(randomizedWord)
         return   
     }
