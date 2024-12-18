@@ -192,6 +192,7 @@ function init() {
 // Choose a random word from the word list
 function randomWord() {
   randomizedWord = words[Math.floor(Math.random() * words.length)];
+  console.log(`The word is: ${randomizedWord}`)
 }
 
 // Update the game board with user's guess
